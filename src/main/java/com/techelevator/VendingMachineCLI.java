@@ -1,5 +1,11 @@
 package com.techelevator;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
 import com.techelevator.view.Menu;
 
 public class VendingMachineCLI {
@@ -21,6 +27,17 @@ public class VendingMachineCLI {
 			
 			if(choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				// display vending machine items
+				File readFile = new File("vendingmachine.csv");
+				try(Scanner fileReader = new Scanner(readFile)) {
+	
+					while(fileReader.hasNextLine()) {
+						String line = fileReader.nextLine();
+						System.out.println(line);
+					}
+				} catch(FileNotFoundException e) {
+					System.out.println("This file does not exist. Please try again.");
+				}
+				
 			} else if(choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				// do purchase
 			}
