@@ -1,11 +1,13 @@
 package supersuperclass;
 
+import java.math.BigDecimal;
+
 public abstract class Product {
 	private String name;
-	private String price;
+	private BigDecimal price;
 	private int quantity;
 	
-	public Product(String name, String price, int quantity) {
+	public Product(String name, BigDecimal price, int quantity) {
 		this.name = name;
 		this.price = price;
 		this.quantity = quantity;
@@ -17,7 +19,7 @@ public abstract class Product {
 		return name;
 	}
 
-	public String getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 

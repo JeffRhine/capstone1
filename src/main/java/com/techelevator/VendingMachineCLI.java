@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 import com.techelevator.view.Menu;
 
+import supersuperclass.Product;
+
 public class VendingMachineCLI {
 
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
@@ -16,27 +18,24 @@ public class VendingMachineCLI {
 													   MAIN_MENU_OPTION_PURCHASE };
 	
 	private Menu menu;
+	private VendingMachine vm;
 	
 	public VendingMachineCLI(Menu menu) {
 		this.menu = menu;
 	}
 	
 	public void run() {
+		vm = new VendingMachine(new ItemReader().loadInventory());
 		while(true) {
 			String choice = (String)menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 			
 			if(choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				// display vending machine items
-				File readFile = new File("vendingmachine.csv");
-				try(Scanner fileReader = new Scanner(readFile)) {
-	
-					while(fileReader.hasNextLine()) {
-						String line = fileReader.nextLine();
-						System.out.println(line);
+//				File readFile = new File("vendingmachine.csv");
+				Map<String, Product>  inventory = vm.getInventory();
+					for(Map.Entry<String, Product> entry : inventory.entrySet()) {
+						System.out.println(entry.getKey() + " " + entry.getValue().getName() + " " + entry.getValue().getPrice() + " " + entry.getValue().getQuantity());
 					}
-				} catch(FileNotFoundException e) {
-					System.out.println("This file does not exist. Please try again.");
-				}
 				
 			} else if(choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				// do purchase

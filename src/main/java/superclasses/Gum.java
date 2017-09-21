@@ -1,11 +1,18 @@
 package superclasses;
 
+import java.math.BigDecimal;
+
 import supersuperclass.Product;
 
-public abstract class Gum extends Product {
-	public Gum (String name, String price, int quantity) {
+public class Gum extends Product {
+	public Gum (String name, BigDecimal price, int quantity) {
 		super(name, price, quantity);
 	}
 	
-	public String drinksSound = "Chew Chew, Yum!";
+	public String gumSound = "Chew Chew, Yum!";
+
+	@Override
+	public String getSound() {
+		return gumSound;
+	}
 }
