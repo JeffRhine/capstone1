@@ -6,6 +6,8 @@ public class Change {
 	private int numQuarters;
 	private int numDimes;
 	private int numNickles;
+	private LogWriter lw = new LogWriter();
+	private VendingMachine vm;
 	
 	public void change(BigDecimal changeReturned) {
 		
@@ -17,10 +19,12 @@ public class Change {
 		
 		numNickles = changeReturned.divideToIntegralValue(new BigDecimal("0.05")).intValue();
 		changeReturned = new BigDecimal("0");
+		
+		lw.writer("Get change", vm.getBalance(), new BigDecimal("0.00"));
 	}
 	
 	public String toString() {
-		return "Your change is " + numQuarters + " quarters " + numDimes + " dimes " + numNickles + " nickles. Congratulation!";
+		return "Your change is " + numQuarters + " quarters " + numDimes + " dimes " + numNickles + " nickles! Congratulation!";
 	}
 
 	public int getNumQuarters() {

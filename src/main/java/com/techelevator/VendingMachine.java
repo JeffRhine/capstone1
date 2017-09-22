@@ -1,26 +1,49 @@
 package com.techelevator;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import supersuperclass.Product;
 
 public class VendingMachine {
-	private BigDecimal balance;
-	private List<String> purchases;
+	private BigDecimal balance = BigDecimal.ZERO;
+	private List<String> purchases = new ArrayList<>();
+	private Date date;
+	private LogWriter lw = new LogWriter();
 	
-	
-	
-	Map<String, Product> inventory = new HashMap<>();
+	Map<String, Product> inventory = new TreeMap<>();
 	
 	public VendingMachine (Map<String, Product> inventory) {
 		this.inventory = inventory;
 	}
 	
-	public BigDecimal feedMoney (BigDecimal dollar) {
-		return balance.add(dollar);
+	public String [] itemNumber () {
+		List<String> listOfItems = new ArrayList<>(inventory.keySet());
+		String[] arrayOfKeys = listOfItems.toArray(new String [inventory.size()]);
+		return arrayOfKeys;
+	}
+	
+	public void purchase (String slotId) {
+		if(inventory.containsKey(slotId) && balance.compareTo(inventory.get(slotId).getPrice()) >= 0) {
+			if(inventory.get(slotId).getQuantity() > 0) {
+				balance = balance.subtract(inventory.get(slotId).getPrice());
+				inventory.get(slotId).decrimentQuantity();
+				//Log the purchase
+				lw.writer(inventory.get(slotId).getName(), inventory.get(slotId).getPrice(), balance);
+			}else{
+				System.out.println("Sold Out");
+			}
+		}
+	}
+	
+	public void feedMoney (BigDecimal userInput) {
+		balance = balance.add(userInput);
+		lw.writer("FEED ME MONEY!", userInput, balance);
 	}
 	
 	public String completeTransaction () {
@@ -47,14 +70,12 @@ public class VendingMachine {
 		return balance = new BigDecimal(0.00);
 	}
 	
-//	public String finishTransaction () {
-	
 	public BigDecimal getBalance() {
-		return balance;
+		return balance.setScale(2);
 	}
 
 	public void setBalance(BigDecimal balance) {
-		this.balance = balance;
+		this.balance = balance.setScale(2);
 	}
 
 	public List<String> getPurchases() {

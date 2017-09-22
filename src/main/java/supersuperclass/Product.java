@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 public abstract class Product {
 	private String name;
 	private BigDecimal price;
-	private int quantity;
+	private Integer quantity;
 	
-	public Product(String name, BigDecimal price, int quantity) {
+	public Product(String name, BigDecimal price, Integer quantity) {
 		this.name = name;
 		this.price = price;
 		this.quantity = quantity;
@@ -26,8 +26,12 @@ public abstract class Product {
 	public int getQuantity() {
 		return quantity;
 	}
+	
+	public void decrimentQuantity () {
+		quantity--;
+	}
 
-	public void purchase (int desiredQuantity) {
+	public void purchase (Integer desiredQuantity) {
 		this.quantity -= desiredQuantity;
 	}	
 }
