@@ -20,7 +20,7 @@ public class Change {
 		numNickles = changeReturned.divideToIntegralValue(new BigDecimal("0.05")).intValue();
 		changeReturned = new BigDecimal("0");
 		
-		lw.writer("Get change", vm.getBalance(), new BigDecimal("0.00"));
+//		lw.writer("Get change ", vm.getBalance(), vm.removeBalance());
 	}
 	
 	public String toString() {
