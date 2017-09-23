@@ -44,7 +44,7 @@ public class VendingMachineCLI {
 				
 			} else if(choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				while(true) {
-				// do purchase
+					System.out.println("");
 					System.out.println("Current money provided: $" + vm.getBalance());
 					String choice2 = (String)menu.getChoiceFromOptions(PURCAHSE_MENU_OPTIONS);
 					
@@ -65,7 +65,7 @@ public class VendingMachineCLI {
 							
 							System.out.println("Please make a selection from the options >>> ");
 							Scanner userChoice = new Scanner (System.in);
-							String line = userChoice.nextLine();
+							String line = userChoice.nextLine().toUpperCase();
 							vm.purchase(line);	
 							break;
 						}
@@ -74,8 +74,12 @@ public class VendingMachineCLI {
 					if(choice2.equals(PURCHASE_MENU_FINISH_TRANSACTION)) {
 						changeReturned.change(vm.getBalance());
 						System.out.println(changeReturned.toString());
+						vm.change(new BigDecimal("0.00"));
 						vm.removeBalance();
-						lw.writer(vm.getName(), vm.get(slotId).getPrice(), balance);
+						for(char sound: vm.getSoundArray()){
+//							System.out.println(" ");
+							System.out.print(sound);
+						}
 						
 						
 						break;

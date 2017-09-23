@@ -2,8 +2,10 @@ package supersuperclass;
 
 import java.math.BigDecimal;
 
+import superclasses.Candy;
+
 public abstract class Product {
-	private String name;
+	protected String name;
 	private BigDecimal price;
 	private Integer quantity;
 	
@@ -33,5 +35,17 @@ public abstract class Product {
 
 	public void purchase (Integer desiredQuantity) {
 		this.quantity -= desiredQuantity;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}	
 }

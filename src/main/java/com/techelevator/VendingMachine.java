@@ -17,6 +17,8 @@ public class VendingMachine {
 	private LogWriter lw = new LogWriter();
 	
 	Map<String, Product> inventory = new TreeMap<>();
+	public char[] soundArray ;
+	ArrayList<Product> sound;
 	
 	public VendingMachine (Map<String, Product> inventory) {
 		this.inventory = inventory;
@@ -33,10 +35,11 @@ public class VendingMachine {
 			if(inventory.get(slotId).getQuantity() > 0) {
 				balance = balance.subtract(inventory.get(slotId).getPrice());
 				inventory.get(slotId).decrimentQuantity();
-				//Log the purchase
+				soundArray=inventory.get(slotId).getSound().toCharArray();
+//				sound.add(inventory.get(slotId).getSound());
 				lw.writer(inventory.get(slotId).getName(), inventory.get(slotId).getPrice(), balance);
 			}else{
-				System.out.println("Sold Out");
+				System.out.println(" Item Sold Out");
 			}
 		}
 	}
@@ -44,6 +47,10 @@ public class VendingMachine {
 	public void feedMoney (BigDecimal userInput) {
 		balance = balance.add(userInput);
 		lw.writer("FEED ME MONEY!", userInput, balance);
+	}
+	public void change (BigDecimal userInput) {
+		userInput=new BigDecimal("0.00");
+		lw.writer("Give Change", balance, userInput);
 	}
 	
 	public String completeTransaction () {
@@ -85,5 +92,15 @@ public class VendingMachine {
 	public void setPurchases(List<String> purchases) {
 		this.purchases = purchases;
 	}
+
+	public char[] getSoundArray() {
+		return soundArray;
+	}
+
+	public ArrayList<Product> getSound() {
+		return sound;
+	}
+
+
 
 }

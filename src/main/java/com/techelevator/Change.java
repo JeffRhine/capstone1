@@ -10,6 +10,7 @@ public class Change {
 	private VendingMachine vm;
 	
 	public void change(BigDecimal changeReturned) {
+//		lw.writer("Give change", vm.getBalance(), vm.removeBalance());
 		
 		numQuarters = changeReturned.divideToIntegralValue(new BigDecimal("0.25")).intValue();
 		changeReturned = changeReturned.remainder(new BigDecimal("0.25"));
@@ -20,7 +21,7 @@ public class Change {
 		numNickles = changeReturned.divideToIntegralValue(new BigDecimal("0.05")).intValue();
 		changeReturned = new BigDecimal("0");
 		
-		lw.writer("Get change", vm.getBalance(), new BigDecimal("0.00"));
+
 	}
 	
 	public String toString() {
