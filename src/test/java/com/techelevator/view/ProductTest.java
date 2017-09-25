@@ -4,45 +4,51 @@ import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.Assert;
 import org.junit.Test;
 
 import supersuperclass.Product;
 
-public class ProductTest extends Product {
+public class ProductTest  {
 	
 
-	public ProductTest(String name, BigDecimal price, Integer quantity) {
-		super(name, price, quantity);
-		// TODO Auto-generated constructor stub
-	}
+	
 
-	static Product sut;
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		
-	}
+	
 
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
+	
+	
 
 	@Test
-	public void testName() {
-		super.setName("Tootsie Roll");
-		assertEquals("Tootsie Roll",name);
+	public void testProduct() {
+		Product product=getProduct("Tootsie Roll",new BigDecimal("1.00"),1);
+		String name=("Tootsie Roll");
+		String answer=product.getName();
+		BigDecimal result = new BigDecimal("1.00");
+		BigDecimal expected = product.getPrice();
+		int num=1;
+		int q=product.getQuantity();
+		assertEquals(name,answer);
+		assertEquals(result,expected);
+		assertEquals(num,q);
 	}
-
-	@Override
-	public char[] getSound() {
+	private Product getProduct(String string, BigDecimal decimal, int i) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Test
+	public void testGetSound() {
+		
+	}
+//	@Test
+//	public void takes_a_decimal() {
+//		Menu menu = getMenuForTestingWithUserInput("4.55\n");
+//		BigDecimal expected = new BigDecimal("4.55");
+//
+//		BigDecimal result = menu.getDecimalFromUser("please enter");
+//
+//		Assert.assertEquals(expected, result);
+//	}
 
 }

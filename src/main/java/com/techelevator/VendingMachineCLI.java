@@ -25,6 +25,7 @@ public class VendingMachineCLI {
 	private VendingMachine vm;
 	private Change changeReturned = new Change();
 	private LogWriter lw = new LogWriter();
+	private ItemReader ir;
 	
 	public VendingMachineCLI(Menu menu) {
 		this.menu = menu;
@@ -51,6 +52,7 @@ public class VendingMachineCLI {
 					if(choice2.equals(PURCHASE_MENU_FEED_MONEY)) {
 						BigDecimal userInput = menu.getDecimalFromUser("Please enter $1, $2, $5, or $10");
 						if(userInput.equals(new BigDecimal("1")) || userInput.equals(new BigDecimal("2")) || userInput.equals(new BigDecimal("5")) || userInput.equals(new BigDecimal("10"))) {
+							userInput.setScale(2);
 							vm.feedMoney(userInput);
 						} else {
 							System.out.println("Please enter a valid dollar amount.");
@@ -76,12 +78,18 @@ public class VendingMachineCLI {
 						System.out.println(changeReturned.toString());
 						vm.change(new BigDecimal("0.00"));
 						vm.removeBalance();
+
 						for(char sound: vm.getSoundArray()){
 //							System.out.println(" ");
 							System.out.print(sound);
 						}
 						
 						
+
+						for(char sound : vm.getSoundArray()) {
+							System.out.print(sound);
+						}
+
 						break;
 					}
 				}
