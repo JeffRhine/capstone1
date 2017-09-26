@@ -1,8 +1,8 @@
-package superclasses;
+package com.techelevator.superclasses;
 
 import java.math.BigDecimal;
 
-import supersuperclass.Product;
+import com.techelevator.supersuperclass.Product;
 
 public class Chips extends Product {
 	public Chips(String name, BigDecimal price, int quantity) {

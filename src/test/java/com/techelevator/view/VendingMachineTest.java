@@ -14,7 +14,6 @@ import org.junit.Test;
 import com.techelevator.VendingMachine;
 
 public class VendingMachineTest {
-	private ByteArrayOutputStream output;
 	 VendingMachine sut;
 	
 
@@ -26,17 +25,17 @@ public class VendingMachineTest {
 	
 
 	@Test
-	public void test() {
-		 sut=sut.addBalance(1);
-		
+	public void testFeedMoney() {
+		 sut.feedMoney(new BigDecimal("1"));
+		assertEquals(new BigDecimal("1.00"), sut.getBalance());
 	}
-//	private Menu getMenuForTestingWithUserInput(String userInput) {
-//		ByteArrayInputStream input = new ByteArrayInputStream(String.valueOf(userInput).getBytes());
-//		return new Menu(input, output);
-//	}
-//
-//	private Menu getMenuForTesting() {
-//		return getMenuForTestingWithUserInput("1\n");
-//	}
+	
+	@Test
+	public void testFeedMoneyMultiple() {
+		 sut.feedMoney(new BigDecimal("1"));
+		 sut.feedMoney(new BigDecimal("1"));
+		assertEquals(new BigDecimal("2.00"), sut.getBalance());
+	}
+
 
 }

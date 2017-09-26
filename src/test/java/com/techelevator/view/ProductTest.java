@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import org.junit.Assert;
 import org.junit.Test;
 
-import supersuperclass.Product;
+import com.techelevator.supersuperclass.Product;
 
 public class ProductTest  {
 	

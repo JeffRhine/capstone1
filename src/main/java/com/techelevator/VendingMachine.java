@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import supersuperclass.Product;
+import com.techelevator.exceptions.SoldOutException;
+import com.techelevator.supersuperclass.Product;
 
 public class VendingMachine {
 	private BigDecimal balance = BigDecimal.ZERO;
@@ -18,8 +19,8 @@ public class VendingMachine {
 	private VendingMachine vm;
 	
 	Map<String, Product> inventory = new TreeMap<>();
-	public char[] soundArray ;
-	ArrayList<Product> sound;
+	List<String> soundArray = new ArrayList<String>();
+	
 	
 	
 	
@@ -27,27 +28,26 @@ public class VendingMachine {
 		this.inventory = inventory;
 	}
 	
-	public String [] itemNumber () {
-		List<String> listOfItems = new ArrayList<>(inventory.keySet());
-		String[] arrayOfKeys = listOfItems.toArray(new String [inventory.size()]);
-		return arrayOfKeys;
-	}
+//	public String [] itemNumber () {
+//		List<String> listOfItems = new ArrayList<>(inventory.keySet());
+//		String[] arrayOfKeys = listOfItems.toArray(new String [inventory.size()]);
+//		return arrayOfKeys;
+//	}
 	
-	public void purchase (String slotId) {
+	public void purchase (String slotId) throws SoldOutException {
 		if(inventory.containsKey(slotId) && balance.compareTo(inventory.get(slotId).getPrice()) >= 0) {
 			if(inventory.get(slotId).getQuantity() > 0) {
 				balance = balance.subtract(inventory.get(slotId).getPrice());
 				inventory.get(slotId).decrimentQuantity();
-				soundArray = inventory.get(slotId).getSound().toCharArray();
+				soundArray.add(inventory.get(slotId).getSound());
 				lw.writer(inventory.get(slotId).getName(), inventory.get(slotId).getPrice(), balance);
 			}else{
-				System.out.println(" Item Sold Out");
+				throw new SoldOutException();
 			}
 		}
 	}
 	
 	public void feedMoney (BigDecimal userInput) {
-		balance.setScale(2);
 		balance = balance.add(userInput);
 		lw.writer("FEED ME MONEY!", userInput, balance);
 	}
@@ -98,7 +98,7 @@ public class VendingMachine {
 		this.purchases = purchases;
 	}
 
-	public char[] getSoundArray() {
+	public List<String> getSoundArray() {
 		return soundArray;
 	}
 	

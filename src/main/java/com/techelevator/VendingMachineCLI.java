@@ -7,9 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import com.techelevator.exceptions.SoldOutException;
+import com.techelevator.supersuperclass.Product;
 import com.techelevator.view.Menu;
-
-import supersuperclass.Product;
 
 public class VendingMachineCLI {
 
@@ -25,7 +25,6 @@ public class VendingMachineCLI {
 	private VendingMachine vm;
 	private Change changeReturned = new Change();
 	private LogWriter lw = new LogWriter();
-	private ItemReader ir;
 	
 	public VendingMachineCLI(Menu menu) {
 		this.menu = menu;
@@ -38,10 +37,8 @@ public class VendingMachineCLI {
 			
 			if(choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 	
-				Map<String, Product>  inventory = vm.getInventory();
-					for(Map.Entry<String, Product> entry : inventory.entrySet()) {
-						System.out.println(entry.getKey() + " " + entry.getValue().getName() + " " + entry.getValue().getPrice() + " " + entry.getValue().getQuantity());
-					}
+				showInventory(vm.getInventory());
+					
 				
 			} else if(choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				while(true) {
@@ -59,18 +56,18 @@ public class VendingMachineCLI {
 						}
 					}
 					if(choice2.equals(PURCHASE_MENU_SELECT_PRODUCT)) {
-						while(true) {	
-							Map<String, Product>  inventory = vm.getInventory();
-								for(Map.Entry<String, Product> entry : inventory.entrySet()) {
-									System.out.println(entry.getKey() + " " + entry.getValue().getName() + " " + entry.getValue().getPrice() + " " + entry.getValue().getQuantity());
-								}
-							
-							System.out.println("Please make a selection from the options >>> ");
-							Scanner userChoice = new Scanner (System.in);
-							String line = userChoice.nextLine().toUpperCase();
-							vm.purchase(line);	
-							break;
-						}
+						
+						showInventory(vm.getInventory());
+						
+						System.out.println("Please make a selection from the options >>> ");
+						Scanner userChoice = new Scanner (System.in);
+						String line = userChoice.nextLine().toUpperCase();
+						try {
+							vm.purchase(line);
+						} catch (SoldOutException e) {
+							System.out.println("That item is sold out.");
+						}	
+						
 								
 					}
 					if(choice2.equals(PURCHASE_MENU_FINISH_TRANSACTION)) {
@@ -79,14 +76,8 @@ public class VendingMachineCLI {
 						vm.change(new BigDecimal("0.00"));
 						vm.removeBalance();
 
-						for(char sound: vm.getSoundArray()){
+						for(String sound: vm.getSoundArray()){
 //							System.out.println(" ");
-							System.out.print(sound);
-						}
-						
-						
-
-						for(char sound : vm.getSoundArray()) {
 							System.out.print(sound);
 						}
 
@@ -102,4 +93,11 @@ public class VendingMachineCLI {
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
 		cli.run();
 	}
+	
+	private void showInventory(Map<String, Product>  inventory) {
+		for(Map.Entry<String, Product> entry : inventory.entrySet()) {
+			System.out.println(entry.getKey() + " " + entry.getValue().getName() + " " + entry.getValue().getPrice() + " " + entry.getValue().getQuantity());
+		}
+	}
+	
 }

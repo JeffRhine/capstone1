@@ -1,8 +1,8 @@
-package supersuperclass;
+package com.techelevator.supersuperclass;
 
 import java.math.BigDecimal;
 
-import superclasses.Candy;
+import com.techelevator.superclasses.Candy;
 
 public abstract class Product {
 	protected String name;

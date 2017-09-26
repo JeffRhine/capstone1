@@ -10,11 +10,11 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-import superclasses.Candy;
-import superclasses.Chips;
-import superclasses.Drinks;
-import superclasses.Gum;
-import supersuperclass.Product;
+import com.techelevator.superclasses.Candy;
+import com.techelevator.superclasses.Chips;
+import com.techelevator.superclasses.Drinks;
+import com.techelevator.superclasses.Gum;
+import com.techelevator.supersuperclass.Product;
 
 public class ItemReader {
 	List<String> productList = new ArrayList<>();
